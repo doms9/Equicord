@@ -45,7 +45,10 @@ const error = (...data: string[]) => console.error(`[Plugin:MediaDownloader] [ER
 
 function ytdlp(args: string[]): Promise<string> {
     log(`Executing yt-dlp with args: ["${args.map(a => a.replace('"', '\\"')).join('", "')}"]`);
+
     let errorMsg = "";
+
+    args = ["--progress", ...args];
 
     return new Promise<string>((resolve, reject) => {
         ytdlpProcess = spawn("yt-dlp", args, {
